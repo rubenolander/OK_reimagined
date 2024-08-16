@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 export default function Header() {
   return (
-    <header className="bg-[#FEFEFE]">
+    <header className="bg-[#e8e2df] p-1">
       <Link href="/">
         <Image
-          width={100}
-          height={100}
+          width={160}
+          height={1}
           alt="Olander Kalender logo"
           src={"/Logo.svg"}
         />
