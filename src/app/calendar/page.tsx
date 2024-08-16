@@ -1,5 +1,6 @@
 "use client";
 import type { Month } from "@/types/types";
+import MonthSelector from "@/components/MonthSelector";
 import { useState, useEffect } from "react";
 
 export default function CalendarPage() {
@@ -34,9 +35,17 @@ export default function CalendarPage() {
     createMonths();
   }, []);
 
+  const handleSelectMonth = (e: { target: { value: any } }) => {
+    console.log(e.target.value);
+  };
+
   return (
     <main className="flex-1 m-4">
-      {months.length === 12 ? months.map((month) => <p>{month.name}</p>) : ""}
+      {months && months.length === 12 ? (
+        <MonthSelector months={months} selectMonth={handleSelectMonth} />
+      ) : (
+        ""
+      )}
     </main>
   );
 }
