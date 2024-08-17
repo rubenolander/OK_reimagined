@@ -18,7 +18,7 @@ export default function CalendarPage() {
     "november",
     "december",
   ];
-  const [months, setMonths] = useState<Month[]>([]);
+  const [months, setMonths] = useState<Month[]>();
 
   useEffect(() => {
     const createMonths = () => {

@@ -8,7 +8,7 @@ export default function Home() {
         How to:
       </Link>
       <Link className="hover:underline" href="/calendar">
-        To application
+        To creation tool
       </Link>
     </main>
   );

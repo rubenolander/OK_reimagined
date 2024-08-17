@@ -1,12 +1,19 @@
-export default function MonthSelector({ months, selectMonth }) {
+import type { Month } from "@/types/types";
+export default function MonthSelector({
+  months,
+  selectMonth,
+}: {
+  months: Month[];
+  selectMonth: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}) {
   return (
-    <select onChange={selectMonth}>
-      <option className="" disabled defaultValue={"hey"} value="Select">
+    <select defaultValue={"default"} onChange={selectMonth}>
+      <option disabled={true} value="default" className="">
         Select month
       </option>
       {months.map((month: { name: string }) => (
-        <option value={month.name}>
-          {month.name.charAt(0).toUpperCase() + month.name.slice(1, 15)}
+        <option key={month.name} className="" value={month.name}>
+          {month.name.charAt(0).toUpperCase() + month.name.slice(1)}
         </option>
       ))}
     </select>
