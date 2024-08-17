@@ -8,7 +8,7 @@ export default function Home() {
         How to:
       </Link>
       <Link className="hover:underline" href="/calendar">
-        To creation tool
+        To creation tool (Swedish month names for now.)
       </Link>
     </main>
   );

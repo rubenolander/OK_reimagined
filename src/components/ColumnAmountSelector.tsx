@@ -5,7 +5,7 @@ export default function ColumnAmountSelector({
 }) {
   return (
     <select
-      className="appearance-none p-1 text-[#212121] after:text-sm max-w-32 cursor-pointer"
+      className="appearance-none h-fit p-1 text-[#212121] after:text-sm max-w-32 cursor-pointer"
       defaultValue={"default"}
       onChange={selectColumnAmount}
     >

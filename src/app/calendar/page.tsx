@@ -2,6 +2,7 @@
 import type { Month } from "@/types/types";
 import MonthSelector from "@/components/MonthSelector";
 import ColumnAmountSelector from "@/components/ColumnAmountSelector";
+import ColumnNameSetter from "@/components/ColumnNameSetter";
 import { useState, useEffect } from "react";
 
 export default function CalendarPage() {
@@ -47,9 +48,15 @@ export default function CalendarPage() {
     console.log(e.target.value);
     setColumnAmount(e.target.value);
   };
+
+  const handleColumnChange = (e: { target: { value: any } }) => {
+    console.log(e.target.value);
+  };
+
   return (
     <main className="flex-1 m-4">
-      <div className="flex gap-4 items-center">
+      <h1 className="text-3xl my-2">Use tool</h1>
+      <div className="flex flex-row gap-4">
         {months && months.length === 12 ? (
           <MonthSelector months={months} selectMonth={handleSelectMonth} />
         ) : null}
@@ -58,7 +65,15 @@ export default function CalendarPage() {
           <ColumnAmountSelector selectColumnAmount={handleColumnAmount} />
         ) : null}
 
-        {columnAmount > 0 ? <p>{columnAmount}</p> : null}
+        {columnAmount > 0 ? (
+          <div className="flex flex-col gap-2">
+            <h2 className="m-1">Name your columns:</h2>
+            <ColumnNameSetter
+              columnAmount={columnAmount}
+              columnNameSet={handleColumnChange}
+            />
+          </div>
+        ) : null}
       </div>
     </main>
   );

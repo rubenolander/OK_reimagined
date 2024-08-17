@@ -8,7 +8,7 @@ export default function MonthSelector({
 }) {
   return (
     <select
-      className="appearance-none p-1 max-w-32 text-[#212121] cursor-pointer"
+      className="appearance-none h-fit p-1 max-w-32 text-[#212121] cursor-pointer"
       defaultValue={"default"}
       onChange={selectMonth}
     >
