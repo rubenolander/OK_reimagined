@@ -7,8 +7,12 @@ export default function MonthSelector({
   selectMonth: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }) {
   return (
-    <select defaultValue={"default"} onChange={selectMonth}>
-      <option disabled={true} value="default" className="">
+    <select
+      className="appearance-none p-1 max-w-32 text-[#212121] cursor-pointer"
+      defaultValue={"default"}
+      onChange={selectMonth}
+    >
+      <option className="" disabled={true} value="default">
         Select month
       </option>
       {months.map((month: { name: string }) => (

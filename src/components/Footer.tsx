@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="bottom-0 p-1 flex justify-between">
-      <div>
+      <div className="ml-2">
         <span>Made by </span>
 
         <a
@@ -12,15 +12,16 @@ export default function Footer() {
           Ruben Olander
         </a>
       </div>
-      <div>
+      <div className="mr-2">
         <span>Please check out </span>
         <a
-          className="text-[#d2691e] mr-4"
+          className="text-[#d2691e]"
           target="_blank"
           href="https://hopla.vercel.app/"
         >
           HOP.LA
         </a>
+        <span> !</span>
       </div>
     </footer>
   );
