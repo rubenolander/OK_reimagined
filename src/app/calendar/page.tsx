@@ -44,18 +44,22 @@ export default function CalendarPage() {
   };
 
   const [columnAmount, setColumnAmount] = useState<number>(0);
-  const handleColumnAmount = (e: { target: { value: any } }) => {
-    setColumnAmount(e.target.value);
+  const handleColumnAmount = (e: { target: { value: string } }) => {
+    const amount = parseInt(e.target.value);
+    setColumnAmount(amount);
+    setColumnNames(Array(amount).fill(""));
   };
 
-  const [columnNames, setColumnNames] = useState<string[]>([]);
-  const handleInputChange = (index: number, value: string) => (e: {}) => {
-    const updatedValue = [...columnNames];
-    updatedValue[index] = value;
-    setColumnNames(updatedValue);
-    console.log(columnNames);
+  const [columnNames, setColumnNames] = useState<string[]>(
+    Array(columnAmount).fill("")
+  );
+
+  const handleInputChange = (index: number, value: string) => {
+    const updatedNames = [...columnNames];
+    updatedNames[index] = value;
+    setColumnNames(updatedNames);
   };
-  console.log(columnNames.length);
+
   return (
     <main className="flex-1 m-4">
       <h1 className="text-3xl my-2">Use tool</h1>
@@ -73,13 +77,15 @@ export default function CalendarPage() {
             <h2 className="m-1">Name your columns:</h2>
             <ColumnNameSetter
               columnAmount={columnAmount}
-              columnStrings={columnNames}
+              columnNames={columnNames}
               columnNameSet={handleInputChange}
             />
           </div>
         ) : null}
       </div>
-      {columnNames.length > 0 ? <CalendarPreview names={columnNames} /> : null}
+      {columnNames.length > 0 ? (
+        <CalendarPreview selectedMonth={selectedMonth} names={columnNames} />
+      ) : null}
       <div></div>
     </main>
   );
