@@ -3,6 +3,7 @@ import type { Month } from "@/types/types";
 import MonthSelector from "@/components/MonthSelector";
 import ColumnAmountSelector from "@/components/ColumnAmountSelector";
 import ColumnNameSetter from "@/components/ColumnNameSetter";
+import CalendarPreview from "@/components/CalendarPreview";
 import { useState, useEffect } from "react";
 
 export default function CalendarPage() {
@@ -28,7 +29,7 @@ export default function CalendarPage() {
       for (let index = 0; index < 12; index++) {
         const month: Month = {
           name: monthNames[index],
-          no: index,
+          no: index + 1,
         };
         loopMonths.push(month);
       }
@@ -39,20 +40,22 @@ export default function CalendarPage() {
 
   const [selectedMonth, setSelectedMonth] = useState<string>("");
   const handleSelectMonth = (e: { target: { value: any } }) => {
-    console.log(e.target.value);
     setSelectedMonth(e.target.value);
   };
 
   const [columnAmount, setColumnAmount] = useState<number>(0);
   const handleColumnAmount = (e: { target: { value: any } }) => {
-    console.log(e.target.value);
     setColumnAmount(e.target.value);
   };
 
-  const handleColumnChange = (e: { target: { value: any } }) => {
-    console.log(e.target.value);
+  const [columnNames, setColumnNames] = useState<string[]>([]);
+  const handleInputChange = (index: number, value: string) => (e: {}) => {
+    const updatedValue = [...columnNames];
+    updatedValue[index] = value;
+    setColumnNames(updatedValue);
+    console.log(columnNames);
   };
-
+  console.log(columnNames.length);
   return (
     <main className="flex-1 m-4">
       <h1 className="text-3xl my-2">Use tool</h1>
@@ -70,11 +73,14 @@ export default function CalendarPage() {
             <h2 className="m-1">Name your columns:</h2>
             <ColumnNameSetter
               columnAmount={columnAmount}
-              columnNameSet={handleColumnChange}
+              columnStrings={columnNames}
+              columnNameSet={handleInputChange}
             />
           </div>
         ) : null}
       </div>
+      {columnNames.length > 0 ? <CalendarPreview names={columnNames} /> : null}
+      <div></div>
     </main>
   );
 }

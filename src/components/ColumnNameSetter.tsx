@@ -1,9 +1,11 @@
 export default function ColumnNameSetter({
   columnAmount,
+  columnStrings,
   columnNameSet,
 }: {
   columnAmount: number;
-  columnNameSet: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  columnStrings: string[];
+  columnNameSet: (index: number, value: string) => void;
 }) {
   const renderInputElements = (amount: number) => {
     const elements = [];
@@ -13,7 +15,8 @@ export default function ColumnNameSetter({
           className="text-[#212121] gap-1 p-1"
           placeholder={`Person ${index + 1}`}
           key={index}
-          onChange={(e) => columnNameSet(e)}
+          value={columnStrings[index]}
+          onChange={(e) => columnNameSet(index, e.target.value)}
         ></input>
       );
     }
