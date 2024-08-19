@@ -38,9 +38,12 @@ export default function CalendarPage() {
     createMonths();
   }, []);
 
-  const [selectedMonth, setSelectedMonth] = useState<string>("");
-  const handleSelectMonth = (e: { target: { value: any } }) => {
-    setSelectedMonth(e.target.value);
+  const [selectedMonth, setSelectedMonth] = useState<Month>();
+  const handleSelectMonth = (e: { target: { value: string } }) => {
+    const selectedMonthValue = months?.find(
+      (month) => month.name === e.target.value
+    );
+    setSelectedMonth(selectedMonthValue);
   };
 
   const [columnAmount, setColumnAmount] = useState<number>(0);
@@ -68,7 +71,7 @@ export default function CalendarPage() {
           <MonthSelector months={months} selectMonth={handleSelectMonth} />
         ) : null}
 
-        {selectedMonth !== "" ? (
+        {selectedMonth ? (
           <ColumnAmountSelector selectColumnAmount={handleColumnAmount} />
         ) : null}
 
@@ -83,10 +86,9 @@ export default function CalendarPage() {
           </div>
         ) : null}
       </div>
-      {columnNames.length > 0 ? (
+      {selectedMonth && columnNames.length > 0 ? (
         <CalendarPreview selectedMonth={selectedMonth} names={columnNames} />
       ) : null}
-      <div></div>
     </main>
   );
 }

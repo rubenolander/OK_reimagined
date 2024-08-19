@@ -1,26 +1,30 @@
+import type { Month } from "@/types/types";
+import CalendarBody from "./CalendarBody";
 export default function CalendarPreview({
   selectedMonth,
   names,
 }: {
-  selectedMonth: string;
+  selectedMonth: Month;
   names: string[];
 }) {
   return (
-    <div className="calendar-container mt-12">
+    <div className="calendar-container mt-12 text-[#212121] bg-white">
+      <h2 className="text-3xl py-2 font-normal">
+        {selectedMonth.name[0].toUpperCase() + selectedMonth.name.slice(1)}
+      </h2>
       <table className="w-full">
         <thead>
-          <tr className="flex flex-row items-end justify-between">
-            <th className="text-3xl flex-1 font-normal text-start max-w-fit">
-              {selectedMonth[0].toUpperCase() + selectedMonth.slice(1)}
-            </th>
+          <tr className="flex justify-between">
+            <th></th>
             {names.map((name, index) => (
-              <th className="font-normal text-start" key={index}>
+              <th className="" key={index}>
                 {name ? name.trim() : "Enter name"}
               </th>
             ))}
+            <th></th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <CalendarBody selectedMonth={selectedMonth} />
       </table>
     </div>
   );

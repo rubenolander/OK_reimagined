@@ -5,12 +5,12 @@ export default function ColumnAmountSelector({
 }) {
   return (
     <select
-      className="appearance-none h-fit p-1 text-[#212121] after:text-sm max-w-32 cursor-pointer"
+      className="appearance-none h-fit p-1 px-4 text-[#212121] after:text-sm cursor-pointer"
       defaultValue={"default"}
       onChange={selectColumnAmount}
     >
       <option className=" after:text-sm" disabled={true} value="default">
-        How many columns?
+        Columns
       </option>
       <option value={1}>1</option>
       <option value={2}>2</option>
