@@ -1,5 +1,6 @@
 "use client";
 import type { Month } from "@/types/types";
+import Link from "next/link";
 import MonthSelector from "@/components/MonthSelector";
 import ColumnAmountSelector from "@/components/ColumnAmountSelector";
 import ColumnNameSetter from "@/components/ColumnNameSetter";
@@ -65,8 +66,13 @@ export default function CalendarPage() {
 
   return (
     <main className="flex-1 m-4">
-      <h1 className="text-3xl my-2">Use tool</h1>
-      <div className="flex flex-row gap-4">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl my-2">Calendar maker (2024)</h1>
+        <Link className="hover:underline" href="/">
+          Home
+        </Link>
+      </div>
+      <div className="flex flex-row gap-4 h-28 max-h-28">
         {months && months.length === 12 ? (
           <MonthSelector months={months} selectMonth={handleSelectMonth} />
         ) : null}
@@ -76,7 +82,7 @@ export default function CalendarPage() {
         ) : null}
 
         {columnAmount > 0 ? (
-          <div className="flex flex-col gap-2">
+          <div className="animate-showUp flex flex-col gap-2 flex-wrap">
             <h2 className="m-1">Name your columns:</h2>
             <ColumnNameSetter
               columnAmount={columnAmount}

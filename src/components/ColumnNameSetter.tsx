@@ -14,6 +14,7 @@ export default function ColumnNameSetter({
         <input
           className="text-[#212121] gap-1 p-1"
           placeholder={`Person ${index + 1}`}
+          maxLength={18}
           key={index}
           value={columnNames[index] || ""}
           onChange={(e) => columnNameSet(index, e.target.value)}

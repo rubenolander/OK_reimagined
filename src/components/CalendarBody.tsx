@@ -14,10 +14,10 @@ export default function CalendarBody({
     const daysOfSelectedMonth = getDaysInMonth(currentYear, selectedMonth.no);
     const days: React.JSX.Element[] = [];
 
-    for (let index = 1; index <= daysOfSelectedMonth; index++) {
+    for (let date = 1; date <= daysOfSelectedMonth; date++) {
       days.push(
-        <tr key={index} className="border-b">
-          <td>{index}</td>
+        <tr key={date} className="border-b-2">
+          <td>{date}</td>
         </tr>
       );
     }

@@ -5,11 +5,11 @@ export default function ColumnAmountSelector({
 }) {
   return (
     <select
-      className="appearance-none h-fit p-1 px-4 text-[#212121] after:text-sm cursor-pointer"
+      className="animate-showUp appearance-none h-fit p-1 text-[#212121] after:text-sm cursor-pointer"
       defaultValue={"default"}
       onChange={selectColumnAmount}
     >
-      <option className=" after:text-sm" disabled={true} value="default">
+      <option className="" disabled={true} value="default">
         Columns
       </option>
       <option value={1}>1</option>

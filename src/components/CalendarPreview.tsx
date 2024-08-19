@@ -8,7 +8,7 @@ export default function CalendarPreview({
   names: string[];
 }) {
   return (
-    <div className="calendar-container mt-12 text-[#212121] bg-white">
+    <div className="animate-showUp calendar-container mt-12 text-[#212121] bg-white">
       <h2 className="text-3xl py-2 font-normal">
         {selectedMonth.name[0].toUpperCase() + selectedMonth.name.slice(1)}
       </h2>
