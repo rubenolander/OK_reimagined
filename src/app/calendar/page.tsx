@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import type { Month } from "@/types/types";
@@ -94,10 +94,19 @@ export default function CalendarPage() {
         </Link>
       </div>
       <div className="flex flex-row gap-4 h-28 max-h-28">
-        {months && months.length === 12 ? (
-          <MonthSelector months={months} selectMonth={handleSelectMonth} />
-        ) : null}
-
+        <div className="flex flex-col justify-between">
+          {months && months.length === 12 ? (
+            <MonthSelector months={months} selectMonth={handleSelectMonth} />
+          ) : null}
+          {selectedMonth && columnNames.length > 0 ? (
+            <button
+              className="animate-showUp hover:underline"
+              onClick={generatePdf}
+            >
+              Create PDF
+            </button>
+          ) : null}
+        </div>
         {selectedMonth ? (
           <ColumnAmountSelector selectColumnAmount={handleColumnAmount} />
         ) : null}
@@ -112,14 +121,9 @@ export default function CalendarPage() {
             />
           </div>
         ) : null}
-        {selectedMonth && columnNames.length > 0 ? (
-          <button className="" onClick={generatePdf}>
-            Create PDF
-          </button>
-        ) : null}
       </div>
       {selectedMonth && columnNames.length > 0 ? (
-        <div className=" animate-showUp">
+        <div className="animate-showUp">
           <CalendarPreview selectedMonth={selectedMonth} names={columnNames} />
         </div>
       ) : null}
