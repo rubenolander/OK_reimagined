@@ -17,12 +17,12 @@ export default function CalendarBody({
     for (let date = 1; date <= daysOfSelectedMonth; date++) {
       days.push(
         <tr key={date} className="border-b-2">
-          <td>{date}</td>
+          <td className="">{date}</td>
         </tr>
       );
     }
     return days;
   };
 
-  return <tbody>{renderDaysColumns()}</tbody>;
+  return <tbody className="flex flex-col gap-2">{renderDaysColumns()}</tbody>;
 }
