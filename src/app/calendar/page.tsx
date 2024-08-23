@@ -1,14 +1,16 @@
 "use client";
-import type { Month } from "@/types/types";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import type { Month } from "@/types/types";
 import MonthSelector from "@/components/MonthSelector";
 import ColumnAmountSelector from "@/components/ColumnAmountSelector";
 import ColumnNameSetter from "@/components/ColumnNameSetter";
 import CalendarPreview from "@/components/CalendarPreview";
-import { useState, useEffect } from "react";
 
 export default function CalendarPage() {
-  const monthNames = [
+  const monthNames: string[] = [
     "januari",
     "februari",
     "mars",
@@ -22,22 +24,16 @@ export default function CalendarPage() {
     "november",
     "december",
   ];
-  const [months, setMonths] = useState<Month[]>();
-
-  useEffect(() => {
-    const createMonths = () => {
-      let loopMonths = [];
-      for (let index = 0; index < 12; index++) {
-        const month: Month = {
-          name: monthNames[index],
-          no: index + 1,
-        };
-        loopMonths.push(month);
-      }
-      setMonths(loopMonths);
-    };
-    createMonths();
-  }, []);
+  const [months] = useState(() => {
+    let loopMonths = [];
+    for (let index = 0; index < 12; index++) {
+      loopMonths.push({
+        name: monthNames[index],
+        no: index + 1,
+      });
+    }
+    return loopMonths;
+  });
 
   const [selectedMonth, setSelectedMonth] = useState<Month>();
   const handleSelectMonth = (e: { target: { value: string } }) => {
@@ -64,10 +60,35 @@ export default function CalendarPage() {
     setColumnNames(updatedNames);
   };
 
+  const generatePdf = () => {
+    const elementToPrint: HTMLElement | null =
+      document.getElementById("pdf-container");
+
+    const pdf: jsPDF = new jsPDF("p", "mm", "a4");
+
+    if (elementToPrint) {
+      html2canvas(elementToPrint).then((canvas) => {
+        const imgData: string = canvas.toDataURL("image/png");
+        const imgWidth: number = pdf.internal.pageSize.getWidth();
+        const imgHeight: number = (canvas.height * imgWidth) / canvas.width;
+        pdf.addImage(imgData, "PNG", 10, 10, imgWidth - 20, imgHeight - 10);
+
+        let saveString: string = "";
+        columnNames.forEach((name) => {
+          saveString = saveString.concat(name.slice(0, 2));
+        });
+
+        pdf.save(`${selectedMonth?.name}_${saveString}.pdf`);
+      });
+    } else {
+      console.log("No element found");
+    }
+  };
+
   return (
     <main className="flex-1 m-4">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl my-2">Calendar maker (2024)</h1>
+        <h1 className="text-3xl my-2">Calendar maker</h1>
         <Link className="hover:underline" href="/">
           Home
         </Link>
@@ -91,9 +112,16 @@ export default function CalendarPage() {
             />
           </div>
         ) : null}
+        {selectedMonth && columnNames.length > 0 ? (
+          <button className="" onClick={generatePdf}>
+            Create PDF
+          </button>
+        ) : null}
       </div>
       {selectedMonth && columnNames.length > 0 ? (
-        <CalendarPreview selectedMonth={selectedMonth} names={columnNames} />
+        <div className=" animate-showUp">
+          <CalendarPreview selectedMonth={selectedMonth} names={columnNames} />
+        </div>
       ) : null}
     </main>
   );
