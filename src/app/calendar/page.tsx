@@ -71,7 +71,15 @@ export default function CalendarPage() {
         const imgData: string = canvas.toDataURL("image/png");
         const imgWidth: number = pdf.internal.pageSize.getWidth();
         const imgHeight: number = (canvas.height * imgWidth) / canvas.width;
-        pdf.addImage(imgData, "PNG", 10, 10, imgWidth - 20, imgHeight - 10);
+        pdf.addImage(
+          imgData,
+          "PNG",
+          10,
+          //A4 measurements are 210mm x 297mm. Giving it a 5mm margin in the bottom.
+          292 - imgHeight,
+          imgWidth - 20,
+          imgHeight - 10
+        );
 
         let saveString: string = "";
         columnNames.forEach((name) => {
